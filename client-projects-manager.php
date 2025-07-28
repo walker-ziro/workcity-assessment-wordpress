@@ -2,13 +2,17 @@
 /**
  * Plugin Name: Workcity Client Project Manager
  * Description: A plugin to manage client projects with custom post type, meta fields, and shortcode display.
- * Version: 1.0.0
- * Author: Your Name
+ * Version: 1.2.0
+ * Author: Ezekiel Success
  * Text Domain: workcity-client-project-manager
  */
 
 // Prevent direct access
-if (!defined('ABSPATH// Activation hook to flush rewrite rules
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+// Activation hook to flush rewrite rules
 register_activation_hook(__FILE__, 'wcp_activation');
 function wcp_activation() {
     // Register post type and taxonomy
@@ -821,24 +825,4 @@ function wcp_dashboard_widget_content() {
     }
     </style>
     <?php
-}
-
-// Initialize the plugin
-new ClientProjectsManager();
-
-// Activation hook to flush rewrite rules
-register_activation_hook(__FILE__, 'cpm_activation');
-function cpm_activation() {
-    // Create an instance to register post type
-    $cpm = new ClientProjectsManager();
-    $cpm->register_post_type();
-    
-    // Flush rewrite rules
-    flush_rewrite_rules();
-}
-
-// Deactivation hook
-register_deactivation_hook(__FILE__, 'cpm_deactivation');
-function cpm_deactivation() {
-    flush_rewrite_rules();
 }
