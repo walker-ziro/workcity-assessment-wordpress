@@ -231,3 +231,5 @@ For support and feature requests, please visit the plugin's GitHub repository or
 ## License
 
 This plugin is licensed under the GPL v2 or later.
+
+**Built with ❤️ for WorkCity Assessment**
