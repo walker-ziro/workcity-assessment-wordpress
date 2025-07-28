@@ -428,6 +428,10 @@ function wcp_save_project_meta_fields($post_id) {
  * Usage: [display_projects] with various filtering options
  */
 function wcp_display_projects_shortcode($atts) {
+    // Check if WordPress is properly loaded
+    if (!function_exists('get_the_ID') || !function_exists('get_the_title') || !function_exists('get_the_content')) {
+        return '<p class="wcp-error">WordPress functions not available. Please ensure the plugin is used within WordPress.</p>';
+    }
     // Set default attributes
     $atts = shortcode_atts(array(
         'limit' => -1, // Show all projects by default
@@ -521,6 +525,7 @@ function wcp_display_projects_shortcode($atts) {
             
             // Format deadline
             $formatted_deadline = '';
+            $days_until_deadline = null;
             if ($project_deadline) {
                 $formatted_deadline = date('F j, Y', strtotime($project_deadline));
                 $days_until_deadline = floor((strtotime($project_deadline) - time()) / (60 * 60 * 24));
@@ -665,8 +670,16 @@ function wcp_add_dashboard_widget() {
  * Dashboard widget content
  */
 function wcp_dashboard_widget_content() {
-    // Get project statistics
-    $total_projects = wp_count_posts('client_project')->publish;
+    // Check if required WordPress functions exist
+    if (!function_exists('wp_count_posts') || !function_exists('get_posts')) {
+        echo '<p>Dashboard widget requires a complete WordPress installation.</p>';
+        return;
+    }
+    
+    try {
+        // Get project statistics with error handling
+        $post_count = wp_count_posts('client_project');
+        $total_projects = isset($post_count->publish) ? $post_count->publish : 0;
     
     $status_counts = array();
     $statuses = array('not_started', 'in_progress', 'completed', 'on_hold');
@@ -682,16 +695,18 @@ function wcp_dashboard_widget_content() {
                     'compare' => '='
                 )
             ),
-            'numberposts' => -1
+            'numberposts' => -1,
+            'fields' => 'ids' // Only get IDs for better performance
         ));
-        $status_counts[$status] = count($count);
+        $status_counts[$status] = is_array($count) ? count($count) : 0;
     }
     
-    // Get overdue projects
+    // Get overdue projects with error handling
     $overdue_projects = get_posts(array(
         'post_type' => 'client_project',
         'post_status' => 'publish',
         'meta_query' => array(
+            'relation' => 'AND',
             array(
                 'key' => '_wcp_project_deadline',
                 'value' => date('Y-m-d'),
@@ -705,6 +720,10 @@ function wcp_dashboard_widget_content() {
         ),
         'numberposts' => -1
     ));
+    
+    if (!is_array($overdue_projects)) {
+        $overdue_projects = array();
+    }
     
     $status_names = array(
         'not_started' => __('Not Started', 'workcity-client-project-manager'),
@@ -825,4 +844,11 @@ function wcp_dashboard_widget_content() {
     }
     </style>
     <?php
+    
+    } catch (Exception $e) {
+        echo '<div class="wcp-dashboard-error">';
+        echo '<p><strong>Error loading project statistics:</strong></p>';
+        echo '<p>' . esc_html($e->getMessage()) . '</p>';
+        echo '</div>';
+    }
 }

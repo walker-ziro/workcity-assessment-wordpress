@@ -1,0 +1,229 @@
+/* Workcity Client Project Manager - Admin Styles */
+
+/* Meta Box Styling */
+.form-table th {
+    width: 150px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.form-table input[type="text"],
+.form-table input[type="email"],
+.form-table input[type="tel"],
+.form-table input[type="number"],
+.form-table input[type="date"],
+.form-table select {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-table input[type="text"]:focus,
+.form-table input[type="email"]:focus,
+.form-table input[type="tel"]:focus,
+.form-table input[type="number"]:focus,
+.form-table input[type="date"]:focus,
+.form-table select:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+.form-table input[type="range"] {
+    width: 200px;
+    margin-right: 10px;
+}
+
+.form-table output {
+    font-weight: bold;
+    color: #0073aa;
+    margin-left: 5px;
+}
+
+.form-table .description {
+    margin-top: 5px;
+    font-style: italic;
+    color: #666;
+    font-size: 13px;
+}
+
+/* Admin List Table Enhancements */
+.wp-list-table .column-project_status {
+    width: 120px;
+}
+
+.wp-list-table .column-project_deadline {
+    width: 100px;
+}
+
+.wp-list-table .column-project_progress {
+    width: 80px;
+}
+
+/* Status Badge in Admin */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+}
+
+.status-badge.not_started {
+    background-color: #7e8993;
+}
+
+.status-badge.in_progress {
+    background-color: #d63638;
+}
+
+.status-badge.completed {
+    background-color: #00a32a;
+}
+
+.status-badge.on_hold {
+    background-color: #dba617;
+}
+
+/* Progress Bar in Admin */
+.admin-progress-bar {
+    width: 60px;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.admin-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00a32a, #4caf50);
+    transition: width 0.3s ease;
+}
+
+/* Meta Box Layout Improvements */
+#wcp_project_details .form-table,
+#wcp_client_details .form-table,
+#wcp_project_budget .form-table {
+    margin-top: 0;
+}
+
+#wcp_project_budget .form-table th {
+    width: 100px;
+    font-size: 12px;
+}
+
+#wcp_project_budget .form-table td {
+    padding: 8px 10px;
+}
+
+/* Dashboard Widget Styling */
+.wcp-dashboard-stats {
+    font-size: 13px;
+}
+
+.wcp-dashboard-stats h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.wcp-stat-box {
+    text-align: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.wcp-stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #0073aa;
+    display: block;
+    line-height: 1;
+}
+
+.wcp-status-breakdown ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wcp-status-breakdown li {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 12px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.status-not_started .status-dot { background: #666; }
+.status-in_progress .status-dot { background: #f57c00; }
+.status-completed .status-dot { background: #388e3c; }
+.status-on_hold .status-dot { background: #d32f2f; }
+
+.wcp-overdue-alert {
+    background: #ffebee;
+    padding: 10px;
+    border-left: 4px solid #d32f2f;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.wcp-overdue-alert h4 {
+    color: #d32f2f !important;
+    margin-top: 0;
+}
+
+.wcp-overdue-alert ul {
+    margin: 5px 0 0 0;
+    padding-left: 20px;
+}
+
+.wcp-overdue-alert li {
+    margin-bottom: 3px;
+}
+
+.wcp-quick-actions {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.wcp-quick-actions .button {
+    margin: 0 5px;
+    font-size: 12px;
+}
+
+/* Responsive Admin Design */
+@media screen and (max-width: 782px) {
+    .form-table input[type="text"],
+    .form-table input[type="email"],
+    .form-table input[type="tel"],
+    .form-table input[type="number"],
+    .form-table input[type="date"],
+    .form-table select {
+        max-width: 280px;
+    }
+    
+    .form-table input[type="range"] {
+        width: 150px;
+    }
+    
+    .wcp-stat-number {
+        font-size: 1.5em;
+    }
+}
