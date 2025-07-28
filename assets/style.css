@@ -4,19 +4,45 @@
     margin: 20px 0;
 }
 
+.wcp-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin: 20px 0;
+}
+
+.wcp-projects-list-view .wcp-project-item {
+    margin-bottom: 20px;
+}
+
 .wcp-project-item {
     background: #fff;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     padding: 25px;
-    margin-bottom: 25px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .wcp-project-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.wcp-project-categories {
+    margin-bottom: 15px;
+}
+
+.wcp-category-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-right: 8px;
+    margin-bottom: 5px;
 }
 
 .wcp-project-title {
@@ -29,17 +55,11 @@
 }
 
 .wcp-project-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 6px;
 }
 
-.wcp-project-meta p {
-    margin: 0;
+.wcp-project-meta > div {
+    margin-bottom: 12px;
     font-size: 0.95em;
     color: #555;
 }
@@ -47,6 +67,13 @@
 .wcp-project-meta strong {
     color: #333;
     font-weight: 600;
+    display: inline-block;
+    min-width: 80px;
+}
+
+.wcp-client-company {
+    font-style: italic;
+    color: #777;
 }
 
 .wcp-status-badge {
@@ -78,6 +105,59 @@
 .wcp-status-badge.status-on_hold {
     background-color: #ffebee;
     color: #d32f2f;
+}
+
+/* Progress Bar Styles */
+.wcp-project-progress {
+    margin: 10px 0;
+}
+
+.wcp-progress-bar {
+    position: relative;
+    background: #f0f0f0;
+    border-radius: 10px;
+    height: 20px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.wcp-progress-fill {
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    height: 100%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+}
+
+.wcp-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #333;
+    z-index: 2;
+}
+
+/* Deadline styling */
+.wcp-project-deadline.due-soon strong {
+    color: #f57c00;
+}
+
+.wcp-project-deadline.overdue strong {
+    color: #d32f2f;
+}
+
+.deadline-warning {
+    color: #f57c00;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.deadline-alert {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 0.9em;
 }
 
 .wcp-project-description {
@@ -133,37 +213,67 @@
     border-left: 4px solid #d32f2f;
 }
 
+.wcp-project-item.completed-progress {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+}
+
+/* List view specific styles */
+.wcp-projects-list-view .wcp-project-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.wcp-projects-list-view .wcp-project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.wcp-projects-list-view .wcp-project-meta > div {
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 200px;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
+    .wcp-projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
     .wcp-project-item {
         padding: 20px;
-        margin-bottom: 20px;
     }
     
     .wcp-project-title {
         font-size: 1.2em;
     }
     
-    .wcp-project-meta {
+    .wcp-projects-list-view .wcp-project-meta {
         flex-direction: column;
         gap: 10px;
     }
     
-    .wcp-status-badge {
-        margin-left: 0;
-        margin-top: 5px;
-        display: block;
-        width: fit-content;
+    .wcp-projects-list-view .wcp-project-meta > div {
+        min-width: auto;
     }
 }
 
-/* Admin styles for meta box */
+/* Admin styles for meta boxes */
 .form-table th {
     width: 150px;
     font-weight: 600;
 }
 
 .form-table input[type="text"],
+.form-table input[type="email"],
+.form-table input[type="tel"],
+.form-table input[type="number"],
 .form-table input[type="date"],
 .form-table select {
     width: 100%;
@@ -175,11 +285,18 @@
 }
 
 .form-table input[type="text"]:focus,
+.form-table input[type="email"]:focus,
+.form-table input[type="tel"]:focus,
+.form-table input[type="number"]:focus,
 .form-table input[type="date"]:focus,
 .form-table select:focus {
     border-color: #0073aa;
     box-shadow: 0 0 0 1px #0073aa;
     outline: none;
+}
+
+.form-table input[type="range"] {
+    width: 200px;
 }
 
 .form-table .description {
@@ -195,6 +312,7 @@
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ccc;
+        margin-bottom: 20px;
     }
     
     .wcp-project-item:hover {
@@ -206,5 +324,9 @@
         border: 1px solid #333;
         background: none !important;
         color: #333 !important;
+    }
+    
+    .wcp-progress-fill {
+        background: #ccc !important;
     }
 }
